@@ -1,0 +1,20 @@
+{
+  "name": "morgenruf-e2e",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:report": "playwright show-report",
+    "test:api": "playwright test tests/healthz.spec.ts tests/mcp.spec.ts tests/api.spec.ts",
+    "test:website": "playwright test tests/website.spec.ts tests/status-page.spec.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.59.1"
+  }
+}
