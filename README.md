@@ -1,5 +1,8 @@
 # Morgenruf E2E Tests
 
+[![E2E Tests](https://github.com/morgenruf/e2e-tests/actions/workflows/e2e.yml/badge.svg)](https://github.com/morgenruf/e2e-tests/actions/workflows/e2e.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 Playwright end-to-end tests for [Morgenruf](https://morgenruf.dev).
 
 ## Test Suites
