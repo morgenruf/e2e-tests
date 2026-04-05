@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Status Page — Full UI', () => {
-  test.use({ baseURL: 'http://status.morgenruf.dev', ignoreHTTPSErrors: true });
+  test.use({ baseURL: 'https://status.morgenruf.dev' });
 
   test('loads with correct title', async ({ page }) => {
     await page.goto('/');
