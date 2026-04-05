@@ -19,7 +19,7 @@ test.describe('Website — Full UI', () => {
 
   test('homepage — Add to Slack CTA button', async ({ page }) => {
     await page.goto('/');
-    const btn = page.getByRole('link', { name: /add to slack/i });
+    const btn = page.getByRole('link', { name: /add to slack/i }).first();
     await expect(btn).toBeVisible();
     const href = await btn.getAttribute('href');
     expect(href).toMatch(/slack\.com|api\.morgenruf\.dev/);

@@ -10,7 +10,7 @@ test.describe('Morgenruf Website', () => {
 
   test('homepage hero has Add to Slack button', async ({ page }) => {
     await page.goto('/');
-    const slackBtn = page.getByRole('link', { name: /add to slack/i });
+    const slackBtn = page.getByRole('link', { name: /add to slack/i }).first();
     await expect(slackBtn).toBeVisible();
   });
 

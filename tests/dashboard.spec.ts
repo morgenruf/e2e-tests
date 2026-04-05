@@ -11,7 +11,7 @@ test.describe('Dashboard', () => {
   });
 
   test('OAuth install URL is valid', async ({ request }) => {
-    const res = await request.get('/slack/install', { maxRedirects: 0 });
+    const res = await request.get('/install', { maxRedirects: 0 });
     // Should redirect to Slack OAuth
     expect([301, 302, 200]).toContain(res.status());
     if (res.status() === 302) {
