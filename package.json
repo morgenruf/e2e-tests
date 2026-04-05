@@ -7,8 +7,12 @@
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test --ui",
     "test:report": "playwright show-report",
-    "test:api": "playwright test tests/healthz.spec.ts tests/mcp.spec.ts tests/api.spec.ts",
-    "test:website": "playwright test tests/website.spec.ts tests/status-page.spec.ts"
+    "test:api": "playwright test tests/healthz.spec.ts tests/api.spec.ts tests/api-full.spec.ts tests/mcp.spec.ts",
+    "test:website": "playwright test tests/website.spec.ts tests/website-full.spec.ts",
+    "test:docs": "playwright test tests/docs-full.spec.ts",
+    "test:dashboard": "playwright test tests/dashboard.spec.ts tests/dashboard-full.spec.ts",
+    "test:status": "playwright test tests/status-page.spec.ts tests/status-full.spec.ts",
+    "test:smoke": "playwright test tests/healthz.spec.ts tests/api-full.spec.ts"
   },
   "keywords": [],
   "author": "",
