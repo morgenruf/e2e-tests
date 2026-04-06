@@ -21,6 +21,12 @@ Playwright end-to-end tests for [Morgenruf](https://morgenruf.dev) — 57 tests 
 | `dashboard.spec.ts` | `api.morgenruf.dev` | Basic dashboard auth, OAuth flow, public feed |
 | `dashboard-full.spec.ts` | `api.morgenruf.dev` | Full dashboard: login redirect, OAuth, MCP auth flows, key-gated tests |
 
+## Secrets Required
+
+| Secret | Description |
+|--------|-------------|
+| `MCP_TEST_KEY` | Required for MCP endpoint tests. Set in GitHub repo Settings → Secrets. Without this, MCP tests are skipped in CI. |
+
 ## Run locally
 
 ```bash
