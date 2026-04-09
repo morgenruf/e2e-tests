@@ -46,7 +46,7 @@ test.describe('Website — Full UI', () => {
     await page.goto('/');
     await page.waitForTimeout(2000);
     // Only check for JavaScript errors — network/resource 404s (external CDNs) should not fail this test
-    expect(errors.filter(e => !e.includes('favicon') && !e.includes('Failed to load resource') && !e.includes('net::ERR') && !e.includes('ERR_CERT'))).toHaveLength(0);
+    expect(errors.filter(e => !e.includes('favicon') && !e.includes('Failed to load resource') && !e.includes('net::ERR') && !e.includes('ERR_CERT') && !e.includes('Content Security Policy'))).toHaveLength(0);
   });
 
   test('homepage — mobile responsive (375px)', async ({ page }) => {

@@ -58,6 +58,6 @@ test.describe('Status Page — Full UI', () => {
     const updated = new Date(body.updated_at).getTime();
     const now = Date.now();
     const diffMin = (now - updated) / 1000 / 60;
-    expect(diffMin).toBeLessThan(10); // should have been checked in last 10 min
+    expect(diffMin).toBeLessThan(90); // GitHub Actions cron can delay up to ~75 min on free tier
   });
 });
