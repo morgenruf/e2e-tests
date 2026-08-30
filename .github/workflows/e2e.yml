@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with: { node-version: '22', cache: 'npm' }
       - run: npm ci
@@ -35,7 +35,7 @@ jobs:
     timeout-minutes: 20
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with: { node-version: '22', cache: 'npm' }
       - run: npm ci
