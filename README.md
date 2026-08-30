@@ -85,3 +85,7 @@ Go to **Actions → E2E Tests → Run workflow** and choose a suite:
 ### Secrets
 
 Add `MCP_TEST_KEY` as a GitHub Actions secret to enable MCP authenticated tests.
+
+---
+
+<sub>Part of [Morgenruf](https://github.com/morgenruf/morgenruf), the self-hosted Slack standup bot &middot; [morgenruf.dev](https://morgenruf.dev) &middot; [docs](https://docs.morgenruf.dev) &middot; [status](https://status.morgenruf.dev)</sub>
