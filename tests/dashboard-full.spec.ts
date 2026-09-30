@@ -21,9 +21,10 @@ test.describe('Dashboard — Full UI', () => {
     expect(isSlackRedirect || [200, 302].includes(status)).toBeTruthy();
   });
 
-  test('public feed with bad token shows 404 page', async ({ page }) => {
-    const res = await page.goto('/feed/definitely-not-a-real-token-12345');
-    expect(res?.status()).toBe(404);
+  test('public feed with bad token shows not-found message', async ({ page }) => {
+    // /feed/<token> is a React route, so the HTML shell is always 200.
+    await page.goto('/feed/definitely-not-a-real-token-12345');
+    await expect(page.getByText('Feed not found or not public')).toBeVisible();
   });
 
   test('MCP info endpoint is accessible', async ({ request }) => {
@@ -31,7 +32,19 @@ test.describe('Dashboard — Full UI', () => {
     expect(res.status()).toBe(200);
     const body = await res.json();
     expect(body.name).toBe('Morgenruf MCP Server');
-    expect(body.tools).toHaveLength(8);
+    // Tool count grows with releases, so check a floor and known names.
+    expect(body.tools.length).toBeGreaterThanOrEqual(8);
+    expect(body.tools).toEqual(expect.arrayContaining([
+      'get_standups',
+      'get_today_standups',
+      'get_blockers',
+      'get_participation',
+      'get_members',
+      'get_member_profiles',
+      'search_standups',
+      'get_workspace_summary',
+      'get_mood_summary',
+    ]));
     expect(body.endpoint).toContain('/mcp');
     expect(body.docs).toContain('docs.morgenruf.dev');
   });

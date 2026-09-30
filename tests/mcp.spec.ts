@@ -29,7 +29,7 @@ test.describe('MCP Endpoint', () => {
     expect(body.result.serverInfo.name).toBe('morgenruf');
   });
 
-  test('POST /mcp tools/list returns 8 tools', async ({ request }) => {
+  test('POST /mcp tools/list returns at least 8 tools', async ({ request }) => {
     const apiKey = process.env.MCP_TEST_KEY;
     test.skip(!apiKey, 'MCP_TEST_KEY not set');
     const res = await request.post('/mcp', {

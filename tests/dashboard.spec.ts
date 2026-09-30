@@ -20,8 +20,9 @@ test.describe('Dashboard', () => {
     }
   });
 
-  test('public feed with invalid token returns 404', async ({ page }) => {
-    const res = await page.goto('/feed/invalid-token-that-does-not-exist');
-    expect(res?.status()).toBe(404);
+  test('public feed with invalid token shows not-found message', async ({ page }) => {
+    // /feed/<token> is a React route, so the HTML shell is always 200.
+    await page.goto('/feed/invalid-token-that-does-not-exist');
+    await expect(page.getByText('Feed not found or not public')).toBeVisible();
   });
 });

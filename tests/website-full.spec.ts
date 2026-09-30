@@ -66,9 +66,12 @@ test.describe('Website — Full UI', () => {
   });
 
   test('support page — loads with contact info', async ({ page }) => {
-    await page.goto('/support.html');
+    await page.goto('/support/');
     await expect(page.locator('h1, h2').first()).toBeVisible();
-    await expect(page.getByText(/github|hello@morgenruf|issues/i).first()).toBeVisible();
+    // On mobile the nav GitHub link sits in a collapsed menu, so match visible text only.
+    await expect(
+      page.getByText(/github|hello@morgenruf|open an issue/i).filter({ visible: true }).first()
+    ).toBeVisible();
   });
 
   test('all internal links return 200', async ({ page, request }) => {

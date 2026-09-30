@@ -11,10 +11,15 @@ test.describe('API — Comprehensive', () => {
     expect(body.jobs).toBeGreaterThanOrEqual(3);
   });
 
-  test('healthz — response time < 500ms', async ({ request }) => {
+  test('healthz response time < 1500ms and dependencies up', async ({ request }) => {
+    // /healthz also checks the database, so allow headroom for a slow query.
     const start = Date.now();
-    await request.get('/healthz');
-    expect(Date.now() - start).toBeLessThan(500);
+    const res = await request.get('/healthz');
+    expect(Date.now() - start).toBeLessThan(1500);
+    expect(res.status()).toBe(200);
+    const body = await res.json();
+    expect(body.db).toBe(true);
+    expect(body.scheduler).toBe(true);
   });
 
   test('mcp info — full schema validation', async ({ request }) => {
@@ -50,9 +55,18 @@ test.describe('API — Comprehensive', () => {
     expect([400, 401, 403]).toContain(res.status());
   });
 
-  test('nonexistent route returns 404', async ({ request }) => {
-    const res = await request.get('/this-does-not-exist-at-all');
-    expect(res.status()).toBe(404);
+  test('nonexistent API routes return 404', async ({ request }) => {
+    // Backend namespaces still 404. Other unknown paths are served by the
+    // React frontend with 200, so the page check below covers those.
+    for (const path of ['/api/does-not-exist', '/dashboard/api/does-not-exist']) {
+      const res = await request.get(path, { maxRedirects: 0 });
+      expect(res.status(), path).toBe(404);
+    }
+  });
+
+  test('nonexistent page renders not-found view', async ({ page }) => {
+    await page.goto('/this-does-not-exist-at-all');
+    await expect(page.getByText('Page not found')).toBeVisible();
   });
 
   test('dashboard API without session returns 401/302', async ({ request }) => {

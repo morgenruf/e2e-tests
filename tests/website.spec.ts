@@ -32,7 +32,7 @@ test.describe('Morgenruf Website', () => {
   });
 
   test('support page loads', async ({ page }) => {
-    await page.goto('/support.html');
+    await page.goto('/support/');
     await expect(page.getByText(/support/i).first()).toBeVisible();
   });
 });
