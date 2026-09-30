@@ -30,19 +30,26 @@ jobs:
           BASE_URL: https://api.morgenruf.dev
 
   full:
-    name: Full E2E Suite
+    name: E2E Suite (${{ inputs.suite || 'all' }})
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.suite != 'smoke')
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with: { node-version: '22', cache: 'npm' }
       - run: npm ci
       - run: npx playwright install chromium --with-deps
-      - name: Run full test suite
-        run: npm test
+      - name: Run test suite
+        # Schedule runs have no inputs, so suite falls back to 'all'.
+        run: |
+          case "$SUITE" in
+            all) npm test ;;
+            api|website|docs|dashboard|status) npm run "test:$SUITE" ;;
+            *) echo "Unknown suite: $SUITE" >&2; exit 1 ;;
+          esac
         env:
+          SUITE: ${{ inputs.suite || 'all' }}
           BASE_URL: https://api.morgenruf.dev
           MCP_TEST_KEY: ${{ secrets.MCP_TEST_KEY }}
       - uses: actions/upload-artifact@v7
